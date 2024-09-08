@@ -1,5 +1,6 @@
 class BaseCard {
-  constructor(name, figrue) {
+  constructor(id, name, figrue) {
+    this.id = id;
     this.name = name;
     this.figrue = figrue;
   }
