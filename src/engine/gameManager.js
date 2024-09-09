@@ -24,6 +24,7 @@ class Game {
 
       if (this.levels.levelData[this.levels.currentLevel][i] === "door") {
         const doorCard = this.createCard("door");
+        doorCard.setAttribute("dragable", "true");
         cardSlot.appendChild(doorCard);
         // cardSlot.classList.add("card-slot");
       } else {
