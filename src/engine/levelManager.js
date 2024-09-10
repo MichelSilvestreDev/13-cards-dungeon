@@ -1,13 +1,10 @@
 class LevelManager {
-  constructor(cardSlots, currentLevel) {
+  constructor(cardSlots, currentLevel, levels) {
     this.cardSlots = cardSlots;
     this.currentLevel = currentLevel;
     this.lastLevel = 12;
-    this.levelData = [];
-  }
-
-  addLevel(level) {
-    this.levelData.push(level);
+    this.levelData = levels;
+    this.transitionTime = 800;
   }
 
   getLevel(levelIndex) {
@@ -16,6 +13,25 @@ class LevelManager {
 
   getLevels() {
     return this.levelData;
+  }
+
+  async levelTransition() {
+    return new Promise((resolve) => {
+      const transition = document.createElement("div");
+      transition.classList.add("level-transition");
+      
+      document.body.appendChild(transition);
+
+      setTimeout(() => {
+        transition.remove();
+        resolve();
+      }, this.transitionTime);
+    })
+  }
+
+  async nextLevel() {
+    await this.levelTransition();
+    if(this.currentLevel < this.lastLevel) this.currentLevel += 1;
   }
 }
 
