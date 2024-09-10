@@ -35,12 +35,13 @@ body {
   border-radius: var(--radius);
 }
 
-.card-slot--empty::after {
+.card-slot::after {
   content: "";
   width: 100px;
   height: 125px;
   border: 2px solid var(--border-color);
   border-radius: var(--radius);
+  position: absolute;
 }
 
 .card {
@@ -51,6 +52,7 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: var(--radius);
+  z-index: 99;
 }
 
 .card::after {
