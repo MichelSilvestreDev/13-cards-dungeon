@@ -1,3 +1,5 @@
+import UIManager from "./uiManager";
+
 class Game {
   constructor(scenes, player, cards, levels) {
     this.scenes = scenes;
@@ -5,12 +7,19 @@ class Game {
     this.cards = cards;
     this.levels = levels;
     this.body = window.document.querySelector("body");
+    this.countPlayerCards = 0;
+    this.limitCards = 13;
+    this.ui = new UIManager(this.body, this.cards, this.countPlayerCards);
   }
 
   createCard(type) {
     const card = document.createElement("div");
-    card.setAttribute("class", `card dragable ${type}`);
+    card.setAttribute("class", `card draggable ${type}`);
     return card;
+  }
+
+  buildUI() {
+    this.ui.buildUI();
   }
 
   buildLevel() {
@@ -25,7 +34,6 @@ class Game {
       if (this.levels.levelData[this.levels.currentLevel][i] === "door") {
         const doorCard = this.createCard("door");
         cardSlot.appendChild(doorCard);
-        // cardSlot.classList.add("card-slot");
       } else {
         cardSlot.classList.add("card-slot--empty");
       }
