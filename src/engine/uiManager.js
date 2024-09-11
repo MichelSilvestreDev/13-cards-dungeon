@@ -1,9 +1,12 @@
+import CardManager from "./cardManager";
+
 class UIManager {
   constructor(body, cards, countCards) {
     this.body = body;
     this.cards = cards;
     this.limitCardsInHand = 5;
     this.countCards = countCards;
+    this.cardManager = new CardManager();
   }
 
   buildDPad() {
@@ -20,8 +23,7 @@ class UIManager {
 
     for (let i = 0; i < this.cards.length; i++) {
       if (i < this.limitCardsInHand) {
-        const card = document.createElement("div");
-        card.setAttribute("class", "card draggable");
+        const card = this.cardManager.createCard("door", "", "door", true);
         cardsContainer.appendChild(card);
       }
     }

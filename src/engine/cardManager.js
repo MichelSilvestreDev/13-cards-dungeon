@@ -17,10 +17,18 @@ class CardManager {
     const card = new Card(type, isDraggable);
     this.insertCard(card.getCard());
 
-    const cardElment = document.createElement("div");
-    card.setAttribute("class", `card dragable ${type}`);
-    card.setAttribute("dragable", "true");
-    return cardElment;
+    const cardElement = document.createElement("div");
+    cardElement.setAttribute("class", `card ${type}`);
+    cardElement.setAttribute("id", card.id);
+
+    if (isDraggable) {
+      cardElement.setAttribute("draggable", "true");
+      cardElement.classList.add("draggable");
+      cardElement.addEventListener("dragstart", event => {
+        event.dataTransfer.setData("cardId", card.id);
+      });
+    }
+    return cardElement;
   }
 
   getCardList() {

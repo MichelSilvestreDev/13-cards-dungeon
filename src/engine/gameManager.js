@@ -1,21 +1,17 @@
+import CardManager from "./cardManager";
 import UIManager from "./uiManager";
 
 class Game {
-  constructor(scenes, player, cards, levels) {
+  constructor(scenes, player, cards, levelManager) {
     this.scenes = scenes;
     this.player = player;
     this.cards = cards;
-    this.levels = levels;
+    this.levelManager = levelManager;
     this.body = window.document.querySelector("body");
     this.countPlayerCards = 0;
     this.limitCards = 13;
+    this.cardManager = new CardManager();
     this.ui = new UIManager(this.body, this.cards, this.countPlayerCards);
-  }
-
-  createCard(type) {
-    const card = document.createElement("div");
-    card.setAttribute("class", `card draggable ${type}`);
-    return card;
   }
 
   buildUI() {
@@ -23,24 +19,49 @@ class Game {
   }
 
   buildLevel() {
+    this.body.innerHTML = "";
     const board = document.createElement("div");
     board.classList.add("board");
     this.body.appendChild(board);
 
-    for (let i = 0; i < this.levels.cardSlots; i++) {
+    for (let i = 0; i < this.levelManager.cardSlots; i++) {
       const cardSlot = document.createElement("div");
       cardSlot.classList.add("card-slot");
 
-      if (this.levels.levelData[this.levels.currentLevel][i] === "door") {
-        const doorCard = this.createCard("door");
-        doorCard.setAttribute("dragable", "true");
-        cardSlot.appendChild(doorCard);
-      } else {
-        cardSlot.classList.add("card-slot--empty");
+      if (this.levelManager.levelData[this.levelManager.currentLevel][i] === "start") {
+        const startCard = this.cardManager.createCard("start", "", "start", false);
+        cardSlot.appendChild(startCard);
       }
+
+      if (this.levelManager.levelData[this.levelManager.currentLevel][i] === "door") {
+        const doorCard = this.cardManager.createCard("door", "", "door", false);
+        cardSlot.appendChild(doorCard);
+        doorCard.addEventListener("click", () => this.finishLevel());
+      }
+
+      cardSlot.addEventListener("dragover", event => {
+        event.preventDefault();
+      });
+
+      cardSlot.addEventListener("drop", event => {
+        event.preventDefault();
+        const cardId = event.dataTransfer.getData("cardId");
+        const cardElement = document.getElementById(cardId);
+
+        if (cardElement && !cardSlot.hasChildNodes()) {
+          cardSlot.appendChild(cardElement);
+        }
+      });
 
       board.appendChild(cardSlot);
     }
+  }
+
+  finishLevel() {
+    window.alert("Level complete!");
+    this.levelManager.nextLevel();
+    this.buildLevel();
+    this.buildUI();
   }
 }
 
