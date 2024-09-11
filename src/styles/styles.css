@@ -161,6 +161,14 @@ body {
   color: var(--text-color);
 }
 
+#player {
+  width: 60px;
+  height: 100px;
+  position: absolute;
+  z-index: 9999;
+  background: red;
+}
+
 #player-ui {
   width: 100px;
   height: 100px;

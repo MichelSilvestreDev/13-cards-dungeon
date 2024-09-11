@@ -2,9 +2,9 @@ import CardManager from "./cardManager";
 import UIManager from "./uiManager";
 
 class Game {
-  constructor(scenes, player, cards, levelManager) {
+  constructor(scenes, playerManager, cards, levelManager) {
     this.scenes = scenes;
-    this.player = player;
+    this.playerManager = playerManager;
     this.cards = cards;
     this.levelManager = levelManager;
     this.body = window.document.querySelector("body");
@@ -14,7 +14,7 @@ class Game {
   }
 
   buildUI() {
-    this.ui.buildUI(this.player.life);
+    this.ui.buildUI(this.playerManager.life);
   }
 
   buildLevel() {
@@ -22,6 +22,8 @@ class Game {
     const board = document.createElement("div");
     board.classList.add("board");
     this.body.appendChild(board);
+
+    const player = this.playerManager.createPlayer();
 
     for (let i = 0; i < this.levelManager.cardSlots; i++) {
       const cardSlot = document.createElement("div");
@@ -31,7 +33,9 @@ class Game {
         this.levelManager.levelData[this.levelManager.currentLevel][i] ===
         "start"
       ) {
-        const startCard = this.cardManager.createCard("start", false);
+        const startCard = this.cardManager.createCard("start", false, i);
+        this.levelManager.insertCardsInBoard(startCard);
+        startCard.appendChild(player);
         cardSlot.appendChild(startCard);
       }
 
@@ -39,7 +43,7 @@ class Game {
         this.levelManager.levelData[this.levelManager.currentLevel][i] ===
         "door"
       ) {
-        const doorCard = this.cardManager.createCard("door", false);
+        const doorCard = this.cardManager.createCard("door", false, i);
         cardSlot.appendChild(doorCard);
         doorCard.addEventListener("click", () => this.finishLevel());
       }
@@ -50,12 +54,14 @@ class Game {
       
       cardSlot.addEventListener("drop", (event) => {
         event.preventDefault();
-        this.player.getHit(1);
-        this.ui.updatePlayerUI(this.player.life);
+        this.playerManager.getHit(1);
+        this.ui.updatePlayerUI(this.playerManager.life);
         const cardId = event.dataTransfer.getData("cardId");
         const cardElement = document.getElementById(cardId);
 
         if (cardElement && !cardSlot.hasChildNodes()) {
+          // Atualizar a position da carta dropada
+          this.cardManager.setCardPosition(cardId, i);
           cardSlot.appendChild(cardElement);
         }
       });

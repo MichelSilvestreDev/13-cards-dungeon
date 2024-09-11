@@ -1,6 +1,7 @@
 class LevelManager {
   constructor(cardSlots, currentLevel, levels) {
     this.cardSlots = cardSlots;
+    this.cardsInBoard = [];
     this.currentLevel = currentLevel;
     this.lastLevel = 12;
     this.levelData = levels;
@@ -13,6 +14,10 @@ class LevelManager {
 
   getLevels() {
     return this.levelData;
+  }
+
+  insertCardsInBoard(card) {
+    this.cardsInBoard.push(card);
   }
 
   async levelTransition() {

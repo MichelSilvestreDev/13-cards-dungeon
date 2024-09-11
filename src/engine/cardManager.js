@@ -14,9 +14,9 @@ class CardManager {
     return this.cardsList.filter((e) => e.id !== id);
   }
 
-  createCard(type, isDraggable) {
-    const card = new Card(type, isDraggable);
-    this.insertCard(card.getCard());
+  createCard(type, isDraggable, position = -1) {
+    const card = new Card(type, isDraggable, position);
+    this.insertCard(card);
 
     const cardElement = document.createElement("div");
     const cardImg = document.createElement("img");
@@ -49,6 +49,12 @@ class CardManager {
 
   getCard(id) {
     return this.cardsList.find((e) => e.id === id);
+  }
+  
+  setCardPosition(id, position) {
+    const card = this.cardsList.find((e) => e.id === id);
+    console.log(this.cardsList);
+    // card.setPosition(position);
   }
 }
 
