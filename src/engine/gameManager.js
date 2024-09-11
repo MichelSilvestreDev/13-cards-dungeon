@@ -28,22 +28,28 @@ class Game {
       const cardSlot = document.createElement("div");
       cardSlot.classList.add("card-slot");
 
-      if (this.levelManager.levelData[this.levelManager.currentLevel][i] === "start") {
-        const startCard = this.cardManager.createCard("start", "", "start", false);
+      if (
+        this.levelManager.levelData[this.levelManager.currentLevel][i] ===
+        "start"
+      ) {
+        const startCard = this.cardManager.createCard("start", false);
         cardSlot.appendChild(startCard);
       }
 
-      if (this.levelManager.levelData[this.levelManager.currentLevel][i] === "door") {
-        const doorCard = this.cardManager.createCard("door", "", "door", false);
+      if (
+        this.levelManager.levelData[this.levelManager.currentLevel][i] ===
+        "door"
+      ) {
+        const doorCard = this.cardManager.createCard("door", false);
         cardSlot.appendChild(doorCard);
         doorCard.addEventListener("click", () => this.finishLevel());
       }
 
-      cardSlot.addEventListener("dragover", event => {
+      cardSlot.addEventListener("dragover", (event) => {
         event.preventDefault();
       });
 
-      cardSlot.addEventListener("drop", event => {
+      cardSlot.addEventListener("drop", (event) => {
         event.preventDefault();
         const cardId = event.dataTransfer.getData("cardId");
         const cardElement = document.getElementById(cardId);
@@ -57,9 +63,9 @@ class Game {
     }
   }
 
-  finishLevel() {
+  async finishLevel() {
     window.alert("Level complete!");
-    this.levelManager.nextLevel();
+    await this.levelManager.nextLevel();
     this.buildLevel();
     this.buildUI();
   }

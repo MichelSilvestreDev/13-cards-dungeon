@@ -1,4 +1,5 @@
 import Card from "../models/cards/Card";
+import blockSvg from "../assets/block.svg";
 
 class CardManager {
   constructor() {
@@ -18,13 +19,24 @@ class CardManager {
     this.insertCard(card.getCard());
 
     const cardElement = document.createElement("div");
+    const cardImg = document.createElement("img");
     cardElement.setAttribute("class", `card ${type}`);
     cardElement.setAttribute("id", card.id);
+    cardImg.setAttribute("src", card.getCard().figure);
+
+    cardElement.appendChild(cardImg);
+
+    for (let i = 0; i < 3; i++) {
+      const cardBg = document.createElement("img");
+      cardBg.setAttribute("src", blockSvg);
+      cardBg.classList.add("card-bg");
+      cardElement.appendChild(cardBg);
+    }
 
     if (isDraggable) {
       cardElement.setAttribute("draggable", "true");
       cardElement.classList.add("draggable");
-      cardElement.addEventListener("dragstart", event => {
+      cardElement.addEventListener("dragstart", (event) => {
         event.dataTransfer.setData("cardId", card.id);
       });
     }

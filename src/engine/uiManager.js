@@ -7,6 +7,12 @@ class UIManager {
     this.limitCardsInHand = 5;
     this.countCards = countCards;
     this.cardManager = new CardManager();
+    this.cardTypes = ["key", "ladder", "corridor"];
+  }
+
+  getRandomCardType() {
+    const randomIndex = Math.floor(Math.random() * this.cardTypes.length);
+    return this.cardTypes[randomIndex];
   }
 
   buildDPad() {
@@ -23,7 +29,8 @@ class UIManager {
 
     for (let i = 0; i < this.cards.length; i++) {
       if (i < this.limitCardsInHand) {
-        const card = this.cardManager.createCard("door", "", "door", true);
+        const randomType = this.getRandomCardType();
+        const card = this.cardManager.createCard(randomType, true);
         cardsContainer.appendChild(card);
       }
     }

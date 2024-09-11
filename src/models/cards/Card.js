@@ -1,4 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
+import doorSvg from "../../assets/door.svg";
+import ladderSvg from "../../assets/ladder.svg";
+import keySvg from "../../assets/key.svg";
 
 class Card {
   constructor(type, isDraggable = true) {
@@ -9,25 +12,25 @@ class Card {
 
   createCardByType(type) {
     switch (type) {
-      case start:
+      case "start":
         return { name: "start", figure: "" };
         break;
-      case door:
-        return { name: "door", figure: "" };
+      case "door":
+        return { name: "door", figure: doorSvg };
         break;
-      case corridor:
+      case "corridor":
         return { name: "corridor", figure: "" };
         break;
-      case ladder:
-        return { name: "ladder", figure: "" };
+      case "ladder":
+        return { name: "ladder", figure: ladderSvg };
         break;
-      case key:
-        return { name: "key", figure: "" };
+      case "key":
+        return { name: "key", figure: keySvg };
         break;
-      case heart:
+      case "heart":
         return { name: "heart", figure: "" };
         break;
-      case bomb:
+      case "bomb":
         return { name: "bomb", figure: "" };
         break;
       default:
