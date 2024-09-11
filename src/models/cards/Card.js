@@ -1,22 +1,52 @@
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 class Card {
-  constructor(name, name, figure, type, isDraggable = true) {
+  constructor(type, isDraggable = true) {
     this.id = uuidv4();
-    this.name = name;
-    this.figure = figure;
     this.type = type;
     this.isDraggable = isDraggable;
   }
 
+  createCardByType(type) {
+    switch (type) {
+      case start:
+        return { name: "start", figure: "" };
+        break;
+      case door:
+        return { name: "door", figure: "" };
+        break;
+      case corridor:
+        return { name: "corridor", figure: "" };
+        break;
+      case ladder:
+        return { name: "ladder", figure: "" };
+        break;
+      case key:
+        return { name: "key", figure: "" };
+        break;
+      case heart:
+        return { name: "heart", figure: "" };
+        break;
+      case bomb:
+        return { name: "bomb", figure: "" };
+        break;
+      default:
+        return {};
+        break;
+    }
+  }
+
   getCard() {
-    return {
+    let card = this.createCardByType(this.type);
+
+    card = {
+      ...card,
       id: this.id,
-      name: this.name,
-      figure: this.figure,
       type: this.type,
       isDraggable: this.isDraggable,
-    }
+    };
+
+    return card;
   }
 }
 

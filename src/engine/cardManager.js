@@ -10,12 +10,12 @@ class CardManager {
   }
 
   removeCard(id) {
-    return this.cardsList.filter(e => e.id !== id);
+    return this.cardsList.filter((e) => e.id !== id);
   }
 
-  createCard(name, figure, type, isDraggable = true) {
-    const card = new Card(name, figure, type, isDraggable);
-    this.insertCard(card);
+  createCard(type, isDraggable) {
+    const card = new Card(type, isDraggable);
+    this.insertCard(card.getCard());
 
     const cardElment = document.createElement("div");
     card.setAttribute("class", `card dragable ${type}`);
@@ -28,7 +28,7 @@ class CardManager {
   }
 
   getCard(id) {
-    return this.cardsList.find(e => e.id === id);
+    return this.cardsList.find((e) => e.id === id);
   }
 }
 
