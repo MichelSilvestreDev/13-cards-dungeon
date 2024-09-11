@@ -21,6 +21,18 @@ class UIManager {
     return dpad;
   }
 
+  buildPlayerUI(playerLife) {
+    const playerUI = document.createElement("div");
+    playerUI.setAttribute("id", "player-ui");
+    playerUI.textContent = `Player life is ${playerLife}`;
+    return playerUI;
+  }
+
+  updatePlayerUI(playerLife) {
+    const playerUI = document.querySelector("#player-ui");
+    playerUI.textContent = `Player life is ${playerLife}`;
+  }
+
   buildContainer() {
     const container = document.createElement("div");
     const cardsContainer = document.createElement("div");
@@ -40,8 +52,10 @@ class UIManager {
     return container;
   }
 
-  buildUI() {
+  buildUI(playerLife) {
     const container = this.buildContainer();
+    const playerUI = this.buildPlayerUI(playerLife);
+    container.appendChild(playerUI);
     this.body.appendChild(container);
   }
 }

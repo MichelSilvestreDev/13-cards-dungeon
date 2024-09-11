@@ -2,6 +2,7 @@
   --bg-color: #2d3436;
   --border-color: #636e72;
   --bg-card-color: #ffeaa7;
+  --bg-life-color: #FF7675;
   --radius: 4px;
   --card-border-color: #363636;
   --text-color: #f8f8f8;
@@ -158,4 +159,14 @@ body {
   align-items: center;
   justify-content: center;
   color: var(--text-color);
+}
+
+#player-ui {
+  width: 100px;
+  height: 100px;
+  color: var(--text-color);
+  background: var(--bg-life-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

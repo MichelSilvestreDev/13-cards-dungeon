@@ -1,8 +1,16 @@
 class Player {
-  constructor(name, life, cards) {
+  constructor(name, cards) {
     this.name = name;
-    this.life = life;
     this.cards = cards;
+    this.life = 13;
+  }
+
+  getHit(damage) {
+    this.life -= damage;
+  }
+
+  move() {
+
   }
 }
 

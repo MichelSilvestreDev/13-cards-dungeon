@@ -9,13 +9,12 @@ class Game {
     this.levelManager = levelManager;
     this.body = window.document.querySelector("body");
     this.countPlayerCards = 0;
-    this.limitCards = 13;
     this.cardManager = new CardManager();
     this.ui = new UIManager(this.body, this.cards, this.countPlayerCards);
   }
 
   buildUI() {
-    this.ui.buildUI();
+    this.ui.buildUI(this.player.life);
   }
 
   buildLevel() {
@@ -48,9 +47,11 @@ class Game {
       cardSlot.addEventListener("dragover", (event) => {
         event.preventDefault();
       });
-
+      
       cardSlot.addEventListener("drop", (event) => {
         event.preventDefault();
+        this.player.getHit(1);
+        this.ui.updatePlayerUI(this.player.life);
         const cardId = event.dataTransfer.getData("cardId");
         const cardElement = document.getElementById(cardId);
 
@@ -64,7 +65,6 @@ class Game {
   }
 
   async finishLevel() {
-    window.alert("Level complete!");
     await this.levelManager.nextLevel();
     this.buildLevel();
     this.buildUI();
