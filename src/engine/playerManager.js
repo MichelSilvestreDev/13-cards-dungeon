@@ -1,14 +1,15 @@
 class PlayerManager {
-  constructor(name, cardsManager, startPosition) {
-    this.name = name;
+  constructor(cardsManager, levelManager) {
     this.cardsManager = cardsManager;
     this.life = 13;
-    this.position = startPosition;
+    this.position = 0;
+    this.levelManager = levelManager;
   }
 
-  createPlayer() {
+  createPlayer(position) {
     const player = document.createElement("div");
     player.setAttribute("id", "player");
+    this.position = position;
     return player;
   }
 
@@ -31,10 +32,10 @@ class PlayerManager {
         direction === "left"
           ? this.cardsManager.getCardByPosition(this.position - 1)
           : this.cardsManager.getCardByPosition(this.position + 1);
-
       return {
         canMove: verifyCardAndPosition(cardInPosition, ["ladder", "corridor", "start", "door", "key"]),
         cardId: cardInPosition?.id || "",
+        cardType: cardInPosition.type,
         newPosition:
           direction === "left" ? this.position - 1 : this.position + 1,
       };
@@ -43,25 +44,32 @@ class PlayerManager {
         direction === "up"
           ? this.cardsManager.getCardByPosition(this.position - 7)
           : this.cardsManager.getCardByPosition(this.position + 7);
-
       return {
         canMove: verifyCardAndPosition(cardInPosition, ["ladder"]),
         cardId: cardInPosition?.id || "",
+        cardType: cardInPosition.type,
         newPosition: direction === "up" ? this.position - 7 : this.position + 7,
       };
     }
   }
 
   move(direction) {
-    const { canMove, cardId, newPosition } = this.canMoveTo(direction);
+    const { canMove, cardId, cardType, newPosition } = this.canMoveTo(direction);
     if (canMove) {
-      this.position = newPosition;
       const cardElem = document.querySelector(`#${cardId}`);
       document.querySelector("#player").remove();
       cardElem.appendChild(this.createPlayer());
+      this.position = newPosition;
+      if(cardType === "door") {
+        this.levelManager.finishLevel();
+      }
     } else {
       console.log(cardId, newPosition);
     }
+  }
+
+  resetPlayer() {
+    this.life = 13;
   }
 }
 

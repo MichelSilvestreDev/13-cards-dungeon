@@ -1,5 +1,3 @@
-import CardManager from "./cardManager";
-
 class UIManager {
   constructor(body, cardsManager, countCards) {
     this.body = body;

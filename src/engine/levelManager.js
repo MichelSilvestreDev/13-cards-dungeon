@@ -6,6 +6,7 @@ class LevelManager {
     this.lastLevel = 12;
     this.levelData = levels;
     this.transitionTime = 1500;
+    this.currentLevelIsFinished = false;
   }
 
   getLevel(levelIndex) {
@@ -18,6 +19,14 @@ class LevelManager {
 
   insertCardsInBoard(card) {
     this.cardsInBoard.push(card);
+  }
+
+  startLevel() {
+    this.currentLevelIsFinished = false;
+  }
+
+  finishLevel() {
+    this.currentLevelIsFinished = true;
   }
 
   async levelTransition() {

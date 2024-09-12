@@ -7,18 +7,17 @@ const App = () => {
   const gameScene = new Scene("gameScene");
   const cardsManager = new CardManager();
   const levels = [
-    { 0: "start", 4: "door" },
-    { 7: "start", 13: "door" },
-    { 0: "start", 12: "door" },
+    { 0: "start", 3: "door" },
+    { 7: "start", 10: "door" },
+    { 0: "start", 11: "door" },
     { 0: "start", 17: "door" },
-    { 0: "start" },
-    { 7: "door" },
-    { 7: "door" },
-    { 7: "door" },
-    { 7: "door" },
-    { 7: "door" },
-    { 7: "door" },
-    { 7: "door" },
+    { 0: "start", 17: "door" },
+    { 0: "start", 17: "door" },
+    { 0: "start", 17: "door" },
+    { 0: "start", 17: "door" },
+    { 0: "start", 17: "door" },
+    { 0: "start", 17: "door" },
+    { 0: "start", 17: "door" },
   ];
   const levelManager = new LevelManager(21, 0, levels);
 

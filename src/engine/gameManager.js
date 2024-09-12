@@ -5,7 +5,7 @@ class Game {
   constructor(scenes, cardsManager, levelManager) {
     this.scenes = scenes;
     this.levelManager = levelManager;
-    this.playerManager = new PlayerManager("Jão", cardsManager, 0);
+    this.playerManager = new PlayerManager(cardsManager, levelManager);
     this.body = window.document.querySelector("body");
     this.countPlayerCards = 0;
     this.cardsManager = cardsManager;
@@ -26,7 +26,19 @@ class Game {
     board.classList.add("board");
     this.body.appendChild(board);
 
-    const player = this.playerManager.createPlayer();
+    this.levelManager.startLevel();
+
+    const levelKeys = Object.keys(this.levelManager.levelData[this.levelManager.currentLevel]);
+
+    let startPosition;
+
+    for (let key of levelKeys) {
+      if (this.levelManager.levelData[this.levelManager.currentLevel][key] === "start") { 
+        startPosition = key;
+      }
+    }
+
+    const player = this.playerManager.createPlayer(parseInt(startPosition));
 
     for (let i = 0; i < this.levelManager.cardSlots; i++) {
       const cardSlot = document.createElement("div");
@@ -88,11 +100,17 @@ class Game {
           this.playerManager.move("down");
           break;
       }
+
+      if (this.levelManager.currentLevelIsFinished) {
+        this.finishLevel();
+      }
     });
   }
 
   async finishLevel() {
     await this.levelManager.nextLevel();
+    this.playerManager.resetPlayer();
+    this.cardsManager.clearCardsList();
     this.buildLevel();
     this.buildUI();
   }
