@@ -17,11 +17,11 @@ class PlayerManager {
   }
 
   canMoveTo(direction) {
-    const verifyCardAndPosition = (cardInPosition) => {
+    const verifyCardAndPosition = (cardInPosition, types) => {
       return (
         !!cardInPosition &&
-        [...this.cardsManager.playerCardTypes, "door", "start"].includes(
-          cardInPosition.type
+        types.includes(
+          this.cardsManager.getCardByPosition(this.position).type
         )
       );
     };
@@ -33,7 +33,7 @@ class PlayerManager {
           : this.cardsManager.getCardByPosition(this.position + 1);
 
       return {
-        canMove: verifyCardAndPosition(cardInPosition),
+        canMove: verifyCardAndPosition(cardInPosition, ["ladder", "corridor", "start", "door", "key"]),
         cardId: cardInPosition?.id || "",
         newPosition:
           direction === "left" ? this.position - 1 : this.position + 1,
@@ -45,7 +45,7 @@ class PlayerManager {
           : this.cardsManager.getCardByPosition(this.position + 7);
 
       return {
-        canMove: verifyCardAndPosition(cardInPosition),
+        canMove: verifyCardAndPosition(cardInPosition, ["ladder"]),
         cardId: cardInPosition?.id || "",
         newPosition: direction === "up" ? this.position - 7 : this.position + 7,
       };
