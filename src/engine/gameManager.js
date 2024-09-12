@@ -1,11 +1,11 @@
-import CardManager from "./cardManager";
+import PlayerManager from "./playerManager";
 import UIManager from "./uiManager";
 
 class Game {
-  constructor(scenes, playerManager, cardsManager, levelManager) {
+  constructor(scenes, cardsManager, levelManager) {
     this.scenes = scenes;
-    this.playerManager = playerManager;
     this.levelManager = levelManager;
+    this.playerManager = new PlayerManager("Jão", cardsManager, 0);
     this.body = window.document.querySelector("body");
     this.countPlayerCards = 0;
     this.cardsManager = cardsManager;
@@ -63,7 +63,6 @@ class Game {
         const cardElement = document.getElementById(cardId);
 
         if (cardElement && !cardSlot.hasChildNodes()) {
-          // Atualizar a position da carta dropada
           this.cardsManager.setCardPosition(cardId, i);
           cardSlot.appendChild(cardElement);
         }
@@ -71,6 +70,25 @@ class Game {
 
       board.appendChild(cardSlot);
     }
+  }
+
+  inputListen() {
+    document.addEventListener("keydown", (event) => {
+      switch (event.key) {
+        case "ArrowLeft":
+          this.playerManager.move("left");
+          break;
+        case "ArrowRight":
+          this.playerManager.move("right");
+          break;
+        case "ArrowUp":
+          this.playerManager.move("up");
+          break;
+        case "ArrowDown":
+          this.playerManager.move("down");
+          break;
+      }
+    });
   }
 
   async finishLevel() {

@@ -5,7 +5,7 @@ import keySvg from "../../assets/key.svg";
 
 class Card {
   constructor(type, isDraggable = true, position = -1) {
-    this.id = uuidv4();
+    this.id = `card-${uuidv4()}`;
     this.type = type;
     this.isDraggable = isDraggable;
     this.position = position;
@@ -41,7 +41,6 @@ class Card {
   }
 
   setPosition(position) {
-    console.log(position);
     this.position = position;
   }
 

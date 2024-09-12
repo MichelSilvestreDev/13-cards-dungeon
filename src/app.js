@@ -1,13 +1,11 @@
 import CardManager from "./engine/cardManager.js";
 import Game from "./engine/gameManager.js";
 import LevelManager from "./engine/levelManager.js";
-import PlayerManager from "./engine/playerManager.js";
 import Scene from "./models/scenes/sceneModel.js";
 
 const App = () => {
   const gameScene = new Scene("gameScene");
   const cardsManager = new CardManager();
-  const player = new PlayerManager("Jão", cardsManager);
   const levels = [
     { 0: "start", 4: "door" },
     { 7: "start", 13: "door" },
@@ -24,10 +22,11 @@ const App = () => {
   ];
   const levelManager = new LevelManager(21, 0, levels);
 
-  const game = new Game(gameScene, player, cardsManager, levelManager);
+  const game = new Game(gameScene, cardsManager, levelManager);
 
   game.buildLevel();
   game.buildUI();
+  game.inputListen();
 };
 
 App();

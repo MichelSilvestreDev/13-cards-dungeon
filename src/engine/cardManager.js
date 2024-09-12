@@ -4,6 +4,7 @@ import blockSvg from "../assets/block.svg";
 class CardManager {
   constructor() {
     this.cardsList = [];
+    this.playerCardTypes = ["key", "ladder", "corridor"];
   }
 
   insertCard(card) {
@@ -18,7 +19,7 @@ class CardManager {
     this.cardsList = [];
   }
 
-  createCard(type, isDraggable, position = -1) {
+  createCard(type, isDraggable, position = null) {
     const card = new Card(type, isDraggable, position);
     this.insertCard(card);
 
@@ -53,6 +54,10 @@ class CardManager {
 
   getCard(id) {
     return this.cardsList.find((e) => e.id === id);
+  }
+
+  getCardByPosition(position) {
+    return this.cardsList.find((e) => e.position === position);
   }
 
   setCardPosition(id, position) {

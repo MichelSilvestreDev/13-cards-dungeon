@@ -1,8 +1,9 @@
 class PlayerManager {
-  constructor(name, cardsManager) {
+  constructor(name, cardsManager, startPosition) {
     this.name = name;
     this.cardsManager = cardsManager;
     this.life = 13;
+    this.position = startPosition;
   }
 
   createPlayer() {
@@ -15,7 +16,53 @@ class PlayerManager {
     this.life -= damage;
   }
 
-  move() {}
+  canMoveTo(direction) {
+    const verifyCardAndPosition = (cardInPosition) => {
+      return (
+        !!cardInPosition &&
+        [...this.cardsManager.playerCardTypes, "door", "start"].includes(
+          cardInPosition.type
+        )
+      );
+    };
+
+    if (["left", "right"].includes(direction)) {
+      const cardInPosition =
+        direction === "left"
+          ? this.cardsManager.getCardByPosition(this.position - 1)
+          : this.cardsManager.getCardByPosition(this.position + 1);
+
+      return {
+        canMove: verifyCardAndPosition(cardInPosition),
+        cardId: cardInPosition?.id || "",
+        newPosition:
+          direction === "left" ? this.position - 1 : this.position + 1,
+      };
+    } else {
+      const cardInPosition =
+        direction === "up"
+          ? this.cardsManager.getCardByPosition(this.position - 7)
+          : this.cardsManager.getCardByPosition(this.position + 7);
+
+      return {
+        canMove: verifyCardAndPosition(cardInPosition),
+        cardId: cardInPosition?.id || "",
+        newPosition: direction === "up" ? this.position - 7 : this.position + 7,
+      };
+    }
+  }
+
+  move(direction) {
+    const { canMove, cardId, newPosition } = this.canMoveTo(direction);
+    if (canMove) {
+      this.position = newPosition;
+      const cardElem = document.querySelector(`#${cardId}`);
+      document.querySelector("#player").remove();
+      cardElem.appendChild(this.createPlayer());
+    } else {
+      console.log(cardId, newPosition);
+    }
+  }
 }
 
 export default PlayerManager;

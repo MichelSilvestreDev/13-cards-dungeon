@@ -5,14 +5,15 @@ class UIManager {
     this.body = body;
     this.countCards = countCards;
     this.cardManager = cardsManager;
-    this.cardTypes = ["key", "ladder", "corridor"];
     this.limitCardsInHand = 5;
     this.limitPlayerCards = 13;
   }
 
   getRandomCardType() {
-    const randomIndex = Math.floor(Math.random() * this.cardTypes.length);
-    return this.cardTypes[randomIndex];
+    const randomIndex = Math.floor(
+      Math.random() * this.cardManager.playerCardTypes.length
+    );
+    return this.cardManager.playerCardTypes[randomIndex];
   }
 
   buildDPad() {
