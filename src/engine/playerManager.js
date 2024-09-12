@@ -4,6 +4,7 @@ class PlayerManager {
     this.life = 13;
     this.position = 0;
     this.levelManager = levelManager;
+    this.hasKey = false;
   }
 
   createPlayer(position) {
@@ -15,6 +16,14 @@ class PlayerManager {
 
   getHit(damage) {
     this.life -= damage;
+  }
+
+  getKey() {
+    this.hasKey = true;
+  }
+
+  removeKey() {
+    this.hasKey = false;
   }
 
   canMoveTo(direction) {
@@ -60,11 +69,13 @@ class PlayerManager {
       document.querySelector("#player").remove();
       cardElem.appendChild(this.createPlayer());
       this.position = newPosition;
-      if(cardType === "door") {
+      if (cardType === "door" && this.hasKey) {
         this.levelManager.finishLevel();
       }
-    } else {
-      console.log(cardId, newPosition);
+      else if (cardType === "key") {
+        this.getKey();
+        cardElem.querySelector("img").remove();
+      }
     }
   }
 

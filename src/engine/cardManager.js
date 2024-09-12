@@ -4,7 +4,7 @@ import blockSvg from "../assets/block.svg";
 class CardManager {
   constructor() {
     this.cardsList = [];
-    this.playerCardTypes = ["key", "ladder", "corridor"];
+    this.playerCardTypes = ["ladder", "corridor"];
   }
 
   insertCard(card) {

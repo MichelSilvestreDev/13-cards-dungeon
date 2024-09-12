@@ -27,6 +27,7 @@ class Game {
     this.body.appendChild(board);
 
     this.levelManager.startLevel();
+    this.playerManager.removeKey();
 
     const levelKeys = Object.keys(this.levelManager.levelData[this.levelManager.currentLevel]);
 
@@ -60,7 +61,15 @@ class Game {
       ) {
         const doorCard = this.cardsManager.createCard("door", false, i);
         cardSlot.appendChild(doorCard);
-        doorCard.addEventListener("click", () => this.finishLevel());
+        doorCard.addEventListener("click", () => this.finishLevel()); // Remove me
+      }
+
+      if (
+        this.levelManager.levelData[this.levelManager.currentLevel][i] ===
+        "key"
+      ) {
+        const keyCard = this.cardsManager.createCard("key", false, i);
+        cardSlot.appendChild(keyCard);
       }
 
       cardSlot.addEventListener("dragover", (event) => {
@@ -73,7 +82,6 @@ class Game {
         const cardId = event.dataTransfer.getData("cardId");
         const cardElement = document.getElementById(cardId);
 
-        
         if (cardElement && !cardSlot.hasChildNodes()) {
           const playerOnCard = cardElement.querySelector("#player");
           
@@ -83,9 +91,6 @@ class Game {
             this.cardsManager.setCardPosition(cardId, i);
             cardSlot.appendChild(cardElement);
           }
-
-          // this.cardsManager.setCardPosition(cardId, i);
-          // cardSlot.appendChild(cardElement);
         }
       });
 
