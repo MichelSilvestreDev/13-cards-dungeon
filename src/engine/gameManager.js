@@ -69,14 +69,23 @@ class Game {
 
       cardSlot.addEventListener("drop", (event) => {
         event.preventDefault();
-        this.playerManager.getHit(1);
-        this.ui.updatePlayerUI(this.playerManager.life);
+        
         const cardId = event.dataTransfer.getData("cardId");
         const cardElement = document.getElementById(cardId);
 
+        
         if (cardElement && !cardSlot.hasChildNodes()) {
-          this.cardsManager.setCardPosition(cardId, i);
-          cardSlot.appendChild(cardElement);
+          const playerOnCard = cardElement.querySelector("#player");
+          
+          if (!playerOnCard) {
+            this.playerManager.getHit(1);
+            this.ui.updatePlayerUI(this.playerManager.life);
+            this.cardsManager.setCardPosition(cardId, i);
+            cardSlot.appendChild(cardElement);
+          }
+
+          // this.cardsManager.setCardPosition(cardId, i);
+          // cardSlot.appendChild(cardElement);
         }
       });
 
