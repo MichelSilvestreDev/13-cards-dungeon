@@ -2,15 +2,18 @@ import CardManager from "./cardManager";
 import UIManager from "./uiManager";
 
 class Game {
-  constructor(scenes, playerManager, cards, levelManager) {
+  constructor(scenes, playerManager, cardsManager, levelManager) {
     this.scenes = scenes;
     this.playerManager = playerManager;
-    this.cards = cards;
     this.levelManager = levelManager;
     this.body = window.document.querySelector("body");
     this.countPlayerCards = 0;
-    this.cardManager = new CardManager();
-    this.ui = new UIManager(this.body, this.cards, this.countPlayerCards);
+    this.cardsManager = cardsManager;
+    this.ui = new UIManager(
+      this.body,
+      this.cardsManager,
+      this.countPlayerCards
+    );
   }
 
   buildUI() {
@@ -33,7 +36,7 @@ class Game {
         this.levelManager.levelData[this.levelManager.currentLevel][i] ===
         "start"
       ) {
-        const startCard = this.cardManager.createCard("start", false, i);
+        const startCard = this.cardsManager.createCard("start", false, i);
         this.levelManager.insertCardsInBoard(startCard);
         startCard.appendChild(player);
         cardSlot.appendChild(startCard);
@@ -43,7 +46,7 @@ class Game {
         this.levelManager.levelData[this.levelManager.currentLevel][i] ===
         "door"
       ) {
-        const doorCard = this.cardManager.createCard("door", false, i);
+        const doorCard = this.cardsManager.createCard("door", false, i);
         cardSlot.appendChild(doorCard);
         doorCard.addEventListener("click", () => this.finishLevel());
       }
@@ -51,7 +54,7 @@ class Game {
       cardSlot.addEventListener("dragover", (event) => {
         event.preventDefault();
       });
-      
+
       cardSlot.addEventListener("drop", (event) => {
         event.preventDefault();
         this.playerManager.getHit(1);
@@ -61,7 +64,7 @@ class Game {
 
         if (cardElement && !cardSlot.hasChildNodes()) {
           // Atualizar a position da carta dropada
-          this.cardManager.setCardPosition(cardId, i);
+          this.cardsManager.setCardPosition(cardId, i);
           cardSlot.appendChild(cardElement);
         }
       });

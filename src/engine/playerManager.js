@@ -1,7 +1,7 @@
 class PlayerManager {
-  constructor(name, cards) {
+  constructor(name, cardsManager) {
     this.name = name;
-    this.cards = cards;
+    this.cardsManager = cardsManager;
     this.life = 13;
   }
 
@@ -15,9 +15,7 @@ class PlayerManager {
     this.life -= damage;
   }
 
-  move() {
-
-  }
+  move() {}
 }
 
 export default PlayerManager;

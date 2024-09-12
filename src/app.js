@@ -6,8 +6,8 @@ import Scene from "./models/scenes/sceneModel.js";
 
 const App = () => {
   const gameScene = new Scene("gameScene");
-  const cards = [1, 2, 3, 4, 5];
-  const player = new PlayerManager("Tadeu", cards);
+  const cardsManager = new CardManager();
+  const player = new PlayerManager("Jão", cardsManager);
   const levels = [
     { 0: "start", 4: "door" },
     { 7: "start", 13: "door" },
@@ -24,7 +24,7 @@ const App = () => {
   ];
   const levelManager = new LevelManager(21, 0, levels);
 
-  const game = new Game(gameScene, player, cards, levelManager);
+  const game = new Game(gameScene, player, cardsManager, levelManager);
 
   game.buildLevel();
   game.buildUI();

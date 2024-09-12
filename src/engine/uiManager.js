@@ -1,13 +1,13 @@
 import CardManager from "./cardManager";
 
 class UIManager {
-  constructor(body, cards, countCards) {
+  constructor(body, cardsManager, countCards) {
     this.body = body;
-    this.cards = cards;
-    this.limitCardsInHand = 5;
     this.countCards = countCards;
-    this.cardManager = new CardManager();
+    this.cardManager = cardsManager;
     this.cardTypes = ["key", "ladder", "corridor"];
+    this.limitCardsInHand = 5;
+    this.limitPlayerCards = 13;
   }
 
   getRandomCardType() {
@@ -39,7 +39,7 @@ class UIManager {
     container.classList.add("container");
     cardsContainer.classList.add("container-cards");
 
-    for (let i = 0; i < this.cards.length; i++) {
+    for (let i = 0; i < this.limitPlayerCards; i++) {
       if (i < this.limitCardsInHand) {
         const randomType = this.getRandomCardType();
         const card = this.cardManager.createCard(randomType, true);
