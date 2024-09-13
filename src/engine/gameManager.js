@@ -1,6 +1,5 @@
 import PlayerManager from "./playerManager";
 import UIManager from "./uiManager";
-import bgAudio from "../assets/audio/sound.mp3";
 class Game {
   constructor(scenes, cardsManager, levelManager) {
     this.scenes = scenes;
@@ -14,16 +13,6 @@ class Game {
       this.countPlayerCards
     );
     this.playerManager = new PlayerManager(cardsManager, levelManager, this.ui);
-    this.soundTrack = new Audio(bgAudio);
-  }
-
-  playAudio() {
-    this.soundTrack.loop = true;
-    this.soundTrack.play();
-  }
-
-  pauseAudio() {
-    this.soundTrack.pause();
   }
 
   buildStart() {
@@ -31,14 +20,25 @@ class Game {
     const startButton = document.createElement("button");
     startButton.addEventListener("click", () => {
       this.body.innerHTML = "";
-      this.playAudio();
-      this.buildLevel();
-      this.buildUI();
-      this.inputListen();
+      this.buildTutorial();
     });
     startButton.textContent = "START";
     startContainer.appendChild(startButton);
     this.body.appendChild(startContainer);
+  }
+
+  buildTutorial() {
+    const tutotialContainer = this.ui.createTutorialUI();
+    const tutotialButton = document.createElement("button");
+    tutotialButton.addEventListener("click", () => {
+      this.body.innerHTML = "";
+      this.buildLevel();
+      this.buildUI();
+      this.inputListen();
+    });
+    tutotialButton.textContent = "START";
+    tutotialContainer.appendChild(tutotialButton);
+    this.body.appendChild(tutotialContainer);
   }
 
   buildUI() {

@@ -2,7 +2,7 @@ import hero from "../assets/hero.svg";
 class PlayerManager {
   constructor(cardsManager, levelManager, uiManager) {
     this.cardsManager = cardsManager;
-    this.life = 13;
+    this.life = 3;
     this.position = 0;
     this.levelManager = levelManager;
     this.uiManager = uiManager;
@@ -20,7 +20,8 @@ class PlayerManager {
   }
 
   getHit(damage) {
-    this.life -= damage;
+    if (this.life > 0) this.life -= damage;
+    else this.uiManager.createGameOverUI();
   }
 
   getKey() {

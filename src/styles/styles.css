@@ -216,7 +216,8 @@ body {
   align-items: center;
 }
 
-.start-container {
+.start-container,
+.gameover-container {
   width: 100%;
   height: 100vh;
   background-color: var(--bg-color);
@@ -226,7 +227,27 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-size: 3rem;
   animation: transition 0.3s ease-in-out forwards;
+}
+
+.tutorial-container {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  animation: transition 0.3s ease-in-out forwards;
+}
+
+li {
+  margin: 1rem auto;
+  font-size: 1.2rem;
 }
 
 button {
