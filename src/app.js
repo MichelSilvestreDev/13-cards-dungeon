@@ -7,8 +7,8 @@ const App = () => {
   const gameScene = new Scene("gameScene");
   const cardsManager = new CardManager();
   const levels = [
-    { 0: "start", 2: "key", 4: "door" },
-    { 7: "start", 9: "key", 10: "door" },
+    { 0: "start", 3: "key", 4: "door", 2: "enemy" },
+    { 7: "start", 9: "key", 10: "door", 3: "enemy" },
     { 0: "start", 4: "key", 11: "door" },
     { 0: "start", 17: "door" },
     { 0: "start", 17: "door" },

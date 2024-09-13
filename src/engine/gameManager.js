@@ -5,7 +5,6 @@ class Game {
   constructor(scenes, cardsManager, levelManager) {
     this.scenes = scenes;
     this.levelManager = levelManager;
-    this.playerManager = new PlayerManager(cardsManager, levelManager);
     this.body = window.document.querySelector("body");
     this.countPlayerCards = 0;
     this.cardsManager = cardsManager;
@@ -14,6 +13,7 @@ class Game {
       this.cardsManager,
       this.countPlayerCards
     );
+    this.playerManager = new PlayerManager(cardsManager, levelManager, this.ui);
   }
 
   buildUI() {
@@ -29,12 +29,17 @@ class Game {
     this.levelManager.startLevel();
     this.playerManager.removeKey();
 
-    const levelKeys = Object.keys(this.levelManager.levelData[this.levelManager.currentLevel]);
+    const levelKeys = Object.keys(
+      this.levelManager.levelData[this.levelManager.currentLevel]
+    );
 
     let startPosition;
 
     for (let key of levelKeys) {
-      if (this.levelManager.levelData[this.levelManager.currentLevel][key] === "start") { 
+      if (
+        this.levelManager.levelData[this.levelManager.currentLevel][key] ===
+        "start"
+      ) {
         startPosition = key;
       }
     }
@@ -65,11 +70,19 @@ class Game {
       }
 
       if (
-        this.levelManager.levelData[this.levelManager.currentLevel][i] ===
-        "key"
+        this.levelManager.levelData[this.levelManager.currentLevel][i] === "key"
       ) {
         const keyCard = this.cardsManager.createCard("key", false, i);
         cardSlot.appendChild(keyCard);
+      }
+
+      if (
+        this.levelManager.levelData[this.levelManager.currentLevel][i] ===
+        "enemy"
+      ) {
+        const enemyCard = this.cardsManager.createCard("enemy", false, i);
+        enemyCard.querySelector("img").classList.add("zombie");
+        cardSlot.appendChild(enemyCard);
       }
 
       cardSlot.addEventListener("dragover", (event) => {
@@ -78,13 +91,13 @@ class Game {
 
       cardSlot.addEventListener("drop", (event) => {
         event.preventDefault();
-        
+
         const cardId = event.dataTransfer.getData("cardId");
         const cardElement = document.getElementById(cardId);
 
         if (cardElement && !cardSlot.hasChildNodes()) {
           const playerOnCard = cardElement.querySelector("#player");
-          
+
           if (!playerOnCard) {
             this.playerManager.getHit(1);
             this.ui.updatePlayerUI(this.playerManager.life);

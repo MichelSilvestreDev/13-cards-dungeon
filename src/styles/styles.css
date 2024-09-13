@@ -2,7 +2,7 @@
   --bg-color: #2d3436;
   --border-color: #636e72;
   --bg-card-color: #ffeaa7;
-  --bg-life-color: #FF7675;
+  --bg-life-color: #ff7675;
   --radius: 4px;
   --card-border-color: #363636;
   --text-color: #f8f8f8;
@@ -192,13 +192,18 @@ body {
   }
 }
 
-#player {
-  width: 60px;
+#player,
+.zombie {
+  width: 80px;
   height: 100px;
   position: absolute;
   z-index: 9999;
-  background: red;
   animation: jump 0.3s ease-in-out;
+}
+
+#player img {
+  width: 100%;
+  position: absolute;
 }
 
 #player-ui {

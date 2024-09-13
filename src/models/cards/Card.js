@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import doorSvg from "../../assets/door.svg";
 import ladderSvg from "../../assets/ladder.svg";
 import keySvg from "../../assets/key.svg";
+import enemySvg from "../../assets/enemy.svg";
 
 class Card {
   constructor(type, isDraggable = true, position = -1) {
@@ -27,6 +28,9 @@ class Card {
         break;
       case "key":
         return { name: "key", figure: keySvg };
+        break;
+      case "enemy":
+        return { name: "enemy", figure: enemySvg };
         break;
       case "heart":
         return { name: "heart", figure: "" };

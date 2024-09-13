@@ -14,12 +14,6 @@ class UIManager {
     return this.cardManager.playerCardTypes[randomIndex];
   }
 
-  buildDPad() {
-    const dpad = document.createElement("div");
-    dpad.classList.add("d-pad");
-    return dpad;
-  }
-
   buildPlayerUI(playerLife) {
     const playerUI = document.createElement("div");
     playerUI.setAttribute("id", "player-ui");

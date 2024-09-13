@@ -27,6 +27,7 @@ class CardManager {
     const cardImg = document.createElement("img");
     cardElement.setAttribute("class", `card ${type}`);
     cardElement.setAttribute("id", card.id);
+    cardImg.classList.add("card-img");
     cardImg.setAttribute("src", card.getCard().figure);
 
     cardElement.appendChild(cardImg);
