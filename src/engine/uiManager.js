@@ -1,4 +1,3 @@
-import titleImg from "../assets/13-cards-dungeon.svg";
 class UIManager {
   constructor(body, cardsManager, countCards) {
     this.body = body;
@@ -10,8 +9,8 @@ class UIManager {
 
   createStartUI() {
     const startContainer = document.createElement("div");
-    const title = document.createElement("img");
-    title.setAttribute("src", titleImg);
+    const title = document.createElement("h1");
+    title.textContent = "13 Cards Dungeon";
     startContainer.classList.add("start-container");
     startContainer.appendChild(title);
     return startContainer;
