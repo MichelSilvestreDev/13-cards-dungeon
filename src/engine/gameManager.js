@@ -1,6 +1,6 @@
 import PlayerManager from "./playerManager";
 import UIManager from "./uiManager";
-
+import bgAudio from "../assets/audio/sound.mp3";
 class Game {
   constructor(scenes, cardsManager, levelManager) {
     this.scenes = scenes;
@@ -16,6 +16,12 @@ class Game {
     this.playerManager = new PlayerManager(cardsManager, levelManager, this.ui);
   }
 
+  createBgAudio() {
+    const audio = new Audio(bgAudio);
+    audio.loop = true;
+    audio.play();
+  }
+
   buildUI() {
     this.ui.buildUI(this.playerManager.life);
   }
@@ -28,6 +34,7 @@ class Game {
 
     this.levelManager.startLevel();
     this.playerManager.removeKey();
+    this.createBgAudio();
 
     const levelKeys = Object.keys(
       this.levelManager.levelData[this.levelManager.currentLevel]
