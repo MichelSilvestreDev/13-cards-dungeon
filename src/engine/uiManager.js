@@ -1,3 +1,4 @@
+import titleImg from "../assets/13-cards-dungeon.svg";
 class UIManager {
   constructor(body, cardsManager, countCards) {
     this.body = body;
@@ -5,6 +6,15 @@ class UIManager {
     this.cardManager = cardsManager;
     this.limitCardsInHand = 5;
     this.limitPlayerCards = 13;
+  }
+
+  createStartUI() {
+    const startContainer = document.createElement("div");
+    const title = document.createElement("img");
+    title.setAttribute("src", titleImg);
+    startContainer.classList.add("start-container");
+    startContainer.appendChild(title);
+    return startContainer;
   }
 
   getRandomCardType() {

@@ -14,12 +14,31 @@ class Game {
       this.countPlayerCards
     );
     this.playerManager = new PlayerManager(cardsManager, levelManager, this.ui);
+    this.soundTrack = new Audio(bgAudio);
   }
 
-  createBgAudio() {
-    const audio = new Audio(bgAudio);
-    audio.loop = true;
-    audio.play();
+  playAudio() {
+    this.soundTrack.loop = true;
+    this.soundTrack.play();
+  }
+
+  pauseAudio() {
+    this.soundTrack.pause();
+  }
+
+  buildStart() {
+    const startContainer = this.ui.createStartUI();
+    const startButton = document.createElement("button");
+    startButton.addEventListener("click", () => {
+      this.body.innerHTML = "";
+      this.playAudio();
+      this.buildLevel();
+      this.buildUI();
+      this.inputListen();
+    });
+    startButton.textContent = "START";
+    startContainer.appendChild(startButton);
+    this.body.appendChild(startContainer);
   }
 
   buildUI() {
@@ -34,7 +53,6 @@ class Game {
 
     this.levelManager.startLevel();
     this.playerManager.removeKey();
-    this.createBgAudio();
 
     const levelKeys = Object.keys(
       this.levelManager.levelData[this.levelManager.currentLevel]

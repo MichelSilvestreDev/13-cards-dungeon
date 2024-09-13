@@ -23,9 +23,10 @@ const App = () => {
 
   const game = new Game(gameScene, cardsManager, levelManager);
 
-  game.buildLevel();
-  game.buildUI();
-  game.inputListen();
+  game.buildStart();
+  // game.buildLevel();
+  // game.buildUI();
+  // game.inputListen();
 };
 
 App();
