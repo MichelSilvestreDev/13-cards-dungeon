@@ -4,7 +4,7 @@ class UIManager {
     this.body = body;
     this.countCards = countCards;
     this.cardManager = cardsManager;
-    this.limitCardsInHand = 5;
+    this.limitCardsInHand = 9;
     this.limitPlayerCards = 13;
   }
 
@@ -40,6 +40,22 @@ class UIManager {
     return tutorialContainer;
   }
 
+  createCompleteUI() {
+    this.body.innerHTML = "";
+    const completeContainer = document.createElement("div");
+    const title = document.createElement("h1");
+    const button = document.createElement("button");
+    title.textContent = "WINNER!";
+    button.textContent = "RESTART";
+    completeContainer.classList.add("gameover-container");
+    button.addEventListener("click", () => {
+      location.reload();
+    });
+    completeContainer.appendChild(title);
+    completeContainer.appendChild(button);
+    this.body.appendChild(completeContainer);
+  }
+
   createGameOverUI() {
     this.body.innerHTML = "";
     const gameoverContainer = document.createElement("div");
@@ -65,15 +81,20 @@ class UIManager {
 
   buildPlayerUI(playerLife) {
     const playerUI = document.createElement("div");
+    const lifeText = document.createElement("h4");
+    const movesText = document.createElement("p");
     playerUI.setAttribute("id", "player-ui");
-    playerUI.textContent = `Player life is ${playerLife}`;
+    lifeText.setAttribute("id", "life-text");
+    lifeText.textContent = playerLife;
+    movesText.textContent = "moves";
+    playerUI.appendChild(lifeText);
+    playerUI.appendChild(movesText);
     return playerUI;
   }
 
   updatePlayerUI(playerLife) {
-    const playerUI = document.querySelector("#player-ui");
-    if (playerUI?.textContent)
-      playerUI.textContent = `Player life is ${playerLife}`;
+    const playerUI = document.querySelector("#life-text");
+    if (playerUI?.textContent) playerUI.textContent = playerLife;
   }
 
   buildContainer() {
