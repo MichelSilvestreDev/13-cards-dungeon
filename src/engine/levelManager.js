@@ -3,7 +3,7 @@ class LevelManager {
     this.cardSlots = cardSlots;
     this.cardsInBoard = [];
     this.currentLevel = currentLevel;
-    this.lastLevel = 2;
+    this.lastLevel = 12;
     this.levelData = levels;
     this.transitionTime = 1500;
     this.currentLevelIsFinished = false;

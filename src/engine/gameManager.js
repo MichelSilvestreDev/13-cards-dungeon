@@ -91,7 +91,6 @@ class Game {
       ) {
         const doorCard = this.cardsManager.createCard("door", false, i);
         cardSlot.appendChild(doorCard);
-        doorCard.addEventListener("click", () => this.finishLevel()); // Remove me
       }
 
       if (
