@@ -1,8 +1,7 @@
 import PlayerManager from "./playerManager";
 import UIManager from "./uiManager";
 class Game {
-  constructor(scenes, cardsManager, levelManager) {
-    this.scenes = scenes;
+  constructor(cardsManager, levelManager) {
     this.levelManager = levelManager;
     this.body = window.document.querySelector("body");
     this.countPlayerCards = 0;

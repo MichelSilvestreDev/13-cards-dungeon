@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "description": "A micro card game rougue like based.",
   "type": "module",
-  "main": "index.js",
   "scripts": {
     "start": "parcel index.html",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "parcel build src/index.html"
+    "build": "parcel build index.html"
   },
   "keywords": [],
   "author": "Michel Silvestre Dev",
